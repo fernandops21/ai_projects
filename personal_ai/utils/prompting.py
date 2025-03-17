@@ -23,13 +23,18 @@ class PromptBuilder:
         # Start with system instructions based on procedural memory
         prompt_parts = [
             "You are a personal AI assistant that learns from interactions.",
-            "Follow these guidelines for your responses:",
-            self.procedural_memory.get_response_guidelines()
-        ]
-        
-        # Add user profile information from semantic memory
+            "When speaking to a user for the first time or when you have limited information about them:",
+            "- Respond naturally and conversationally, like a friendly assistant meeting someone new",
+            "- Don't make assumptions about their interests or background",
+            "- Keep initial responses brief and let the conversation develop organically",
+            "- Only mention information you've actually learned from previous interactions",
+            "You CANNOT set reminders or alarms as you don't have the capability to track time or send notifications.",
+            "If asked about reminders or timers, politely explain this limitation."
+            ]
+
+        # Add user profile information ONLY if it actually exists
         user_profile = self.semantic_memory.get_user_profile_summary()
-        if user_profile:
+        if user_profile and any(line.strip() for line in user_profile.split('\n')):
             prompt_parts.append("\nWhat I know about you:")
             prompt_parts.append(user_profile)
         

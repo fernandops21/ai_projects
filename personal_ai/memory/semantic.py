@@ -155,14 +155,11 @@ class SemanticMemory:
         return results["documents"][0]
     
     def get_user_profile_summary(self):
-        """
-        Get a concise summary of key user information.
-        This is useful for including in AI prompts.
-        """
+        """Get a concise summary of key user information."""
         summary = []
-        
-        # Add demographic information
-        if self.facts["demographics"]:
+    
+        # Only add demographics if non-empty
+        if self.facts["demographics"] and any(self.facts["demographics"].values()):
             demo_str = ", ".join([f"{k}: {v}" for k, v in self.facts["demographics"].items()])
             summary.append(f"Demographics: {demo_str}")
         
@@ -197,5 +194,9 @@ class SemanticMemory:
         if self.facts["goals"]:
             goals = [g["description"] for g in self.facts["goals"][:3]]
             summary.append(f"Goals: {', '.join(goals)}")
-        
+
+        # If we have no actual information yet, don't pretend we do
+        if not summary:
+            return ""
+            
         return "\n".join(summary)

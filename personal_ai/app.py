@@ -4,6 +4,7 @@ import gradio as gr
 import datetime
 import uuid
 import time
+import nltk
 
 # Create required directories
 os.makedirs("data", exist_ok=True)
