@@ -1,72 +1,72 @@
-# Personal AI: um assistente local com memória
+# Personal AI: a local assistant with memory
 
-🇺🇸 [Read in English](README.en.md)
+🇧🇷 [Leia em português](README.pt-BR.md)
 
-Um assistente de IA que **aprende sobre o usuário ao longo das conversas** e roda **100% local**: modelo, memórias e dados ficam na máquina, sem nenhuma API externa.
+An AI assistant that **learns about the user over the course of conversations** and runs **100% locally**: the model, memories and data all stay on your machine, with no external APIs.
 
-A ideia central é imitar como a memória humana é organizada. Em vez de jogar o histórico inteiro no prompt, o sistema separa o que sabe em **quatro tipos de memória** e, a cada mensagem, busca só o que é relevante.
+The core idea is to mimic how human memory is organized. Instead of stuffing the whole history into the prompt, the system splits what it knows into **four types of memory** and, on every message, retrieves only what is relevant.
 
-![Screenshot do assistente](docs/screenshot.png)
+![Assistant screenshot](docs/screenshot.png)
 
-*Na captura acima, o nome "Fernando" não aparece na conversa: o assistente o recuperou de interações anteriores guardadas na memória.*
+*In the screenshot above, the name "Fernando" never appears in the conversation: the assistant recalled it from earlier interactions stored in memory.*
 
-> Projeto desenvolvido no início de 2025, antes de "memória" virar recurso padrão em assistentes como ChatGPT e Claude.
+> Built in early 2025, before "memory" became a standard feature in assistants like ChatGPT and Claude.
 
-## Como funciona
+## How it works
 
 ```mermaid
 flowchart LR
-    U[Mensagem do usuário] --> E[Extração de informações<br/>regex + NLTK]
-    E --> S[(Semântica<br/>fatos sobre o usuário)]
-    E --> P[(Procedural<br/>padrões de uso)]
+    U[User message] --> E[Information extraction<br/>regex + NLTK]
+    E --> S[(Semantic<br/>facts about the user)]
+    E --> P[(Procedural<br/>usage patterns)]
     U --> B[PromptBuilder]
     S --> B
     P --> B
-    EP[(Episódica<br/>conversas passadas)] --> B
-    W[(Working<br/>últimas trocas)] --> B
+    EP[(Episodic<br/>past conversations)] --> B
+    W[(Working<br/>recent turns)] --> B
     B --> M[Mistral 7B<br/>via Ollama]
-    M --> R[Resposta]
+    M --> R[Response]
     R --> EP
     R --> W
 ```
 
-| Memória | Inspiração | Implementação |
+| Memory | Inspired by | Implementation |
 |---|---|---|
-| **Working** | Memória de curto prazo | Buffer das últimas 10 trocas da conversa atual |
-| **Episódica** | Lembranças de eventos | Cada conversa vira um embedding no ChromaDB e é recuperada por similaridade semântica com a mensagem atual |
-| **Semântica** | Conhecimento geral sobre alguém | Perfil estruturado (preferências, habilidades, objetivos, dados demográficos) em JSON + busca vetorial |
-| **Procedural** | Hábitos e padrões | Tópicos mais frequentes e horários de uso |
+| **Working** | Short-term memory | Buffer of the last 10 turns of the current conversation |
+| **Episodic** | Memories of events | Each exchange becomes an embedding in ChromaDB and is retrieved by semantic similarity to the current message |
+| **Semantic** | General knowledge about someone | Structured profile (preferences, skills, goals, demographics) in JSON + vector search |
+| **Procedural** | Habits and patterns | Most frequent topics and usage times |
 
-A cada mensagem, o `PromptBuilder` monta o contexto juntando o perfil do usuário, os episódios passados mais parecidos com a pergunta, os interesses recorrentes e as últimas trocas. Só então chama o modelo.
+On every message, the `PromptBuilder` assembles the context from the user profile, the past episodes most similar to the question, recurring interests and the latest turns. Only then is the model called.
 
 ## Stack
 
-- **LLM:** Mistral 7B rodando localmente com [Ollama](https://ollama.com)
+- **LLM:** Mistral 7B running locally with [Ollama](https://ollama.com)
 - **Embeddings:** `all-MiniLM-L6-v2` (sentence-transformers)
-- **Banco vetorial:** ChromaDB
-- **NLP:** NLTK + expressões regulares
-- **Interface:** Gradio
+- **Vector database:** ChromaDB
+- **NLP:** NLTK + regular expressions
+- **UI:** Gradio
 
-## Estrutura
+## Structure
 
 ```
 personal_ai/
-├── app.py               # Aplicação principal e interface Gradio
+├── app.py               # Main application and Gradio UI
 ├── memory/
-│   ├── working.py       # Memória de trabalho
-│   ├── episodic.py      # Memória episódica (ChromaDB)
-│   ├── semantic.py      # Memória semântica (perfil + ChromaDB)
-│   └── procedural.py    # Memória procedural
+│   ├── working.py       # Working memory
+│   ├── episodic.py      # Episodic memory (ChromaDB)
+│   ├── semantic.py      # Semantic memory (profile + ChromaDB)
+│   └── procedural.py    # Procedural memory
 ├── utils/
-│   ├── embedding.py     # Geração de embeddings
-│   ├── extraction.py    # Extração de informações das mensagens
-│   └── prompting.py     # Montagem do prompt com as memórias
-└── data/                # Memórias salvas localmente (fora do git)
+│   ├── embedding.py     # Embedding generation
+│   ├── extraction.py    # Information extraction from messages
+│   └── prompting.py     # Prompt assembly from memories
+└── data/                # Memories stored locally (not in git)
 ```
 
-## Como rodar
+## Running it
 
-Pré-requisitos: Python 3.12 e Ollama com o modelo baixado (`ollama pull mistral:7b`).
+Requirements: Python 3.12 and Ollama with the model pulled (`ollama pull mistral:7b`).
 
 ```bash
 python -m venv personal-ai-venv
@@ -75,4 +75,4 @@ pip install -r requirements.txt
 python app.py
 ```
 
-A interface abre em http://127.0.0.1:7860.
+The UI opens at http://127.0.0.1:7860.

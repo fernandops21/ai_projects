@@ -1,17 +1,17 @@
 # ai_projects
 
-🇺🇸 [Read in English](README.en.md)
+🇧🇷 [Leia em português](README.pt-BR.md)
 
-Experimentos com IA rodando localmente, usando o modelo **Mistral 7B** via [Ollama](https://ollama.com).
+Experiments with AI running locally, using the **Mistral 7B** model via [Ollama](https://ollama.com).
 
 ## [Personal AI](personal_ai/)
 
-Assistente que aprende sobre o usuário ao longo das conversas, com quatro sistemas de memória inspirados na memória humana (working, episódica, semântica e procedural). Roda 100% local: modelo, embeddings e banco vetorial.
+An assistant that learns about the user over the course of conversations, with four memory systems inspired by human memory (working, episodic, semantic and procedural). Runs 100% locally: model, embeddings and vector database.
 
-[![Screenshot do Personal AI](personal_ai/docs/screenshot.png)](personal_ai/)
+[![Personal AI screenshot](personal_ai/docs/screenshot.png)](personal_ai/)
 
-Detalhes de arquitetura e como rodar estão no [README do projeto](personal_ai/README.md).
+Architecture details and how to run it are in the [project README](personal_ai/README.md).
 
 ---
 
-A pasta [`learning/`](learning/) guarda os primeiros passos que levaram a esse projeto: um chat no terminal e uma interface web simples com o Mistral 7B local.
+The [`learning/`](learning/) folder holds the first steps that led to this project: a terminal chat and a simple web UI with a local Mistral 7B.
