@@ -1,0 +1,6 @@
+torch
+transformers
+langchain
+sentence-transformers
+accelerate
+gradio

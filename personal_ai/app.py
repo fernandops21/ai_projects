@@ -21,15 +21,15 @@ def setup_nltk():
     # Tell NLTK to use this directory
     nltk.data.path.append(nltk_data_dir)
     
-    # Check if punkt is already downloaded
-    try:
-        nltk.data.find('tokenizers/punkt')
-        print("NLTK punkt tokenizer already available.")
-    except LookupError:
-        # Download the required resources
-        print("Downloading punkt tokenizer...")
-        nltk.download('punkt', download_dir=nltk_data_dir)
-        print("NLTK resources downloaded successfully.")
+    # Newer NLTK versions (>=3.8.2) need punkt_tab instead of punkt
+    for resource in ("punkt", "punkt_tab"):
+        try:
+            nltk.data.find(f"tokenizers/{resource}")
+            print(f"NLTK {resource} tokenizer already available.")
+        except LookupError:
+            print(f"Downloading {resource} tokenizer...")
+            nltk.download(resource, download_dir=nltk_data_dir)
+    print("NLTK resources ready.")
 
 # Run NLTK setup before importing our modules
 # This ensures resources are available when they're needed
