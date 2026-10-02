@@ -2,26 +2,14 @@
 
 Experimentos com IA rodando localmente, usando o modelo **Mistral 7B** via [Ollama](https://ollama.com).
 
-## Estrutura
+## [Personal AI](personal_ai/)
 
-| Pasta | Descrição |
-|---|---|
-| [`learning/`](learning/) | Primeiros experimentos: chat no terminal e interface web simples (Gradio) |
-| [`personal_ai/`](personal_ai/) | Assistente pessoal que aprende sobre o usuário com 4 sistemas de memória (working, episodic, semantic, procedural) |
+Assistente que aprende sobre o usuário ao longo das conversas, com quatro sistemas de memória inspirados na memória humana (working, episódica, semântica e procedural). Roda 100% local: modelo, embeddings e banco vetorial.
 
-## Pré-requisitos
+[![Screenshot do Personal AI](personal_ai/docs/screenshot.png)](personal_ai/)
 
-- Python 3.12
-- Ollama instalado, com o modelo baixado: `ollama pull mistral:7b`
+Detalhes de arquitetura, como rodar e o que eu faria diferente hoje estão no [README do projeto](personal_ai/README.md).
 
-## Como rodar o `personal_ai`
+---
 
-```bash
-cd personal_ai
-python -m venv personal-ai-venv
-source personal-ai-venv/bin/activate
-pip install -r requirements.txt
-python app.py
-```
-
-A interface abre em http://127.0.0.1:7860. As memórias ficam salvas localmente em `personal_ai/data/` (fora do git).
+A pasta [`learning/`](learning/) guarda os primeiros passos que levaram a esse projeto: um chat no terminal e uma interface web simples com o Mistral 7B local.
