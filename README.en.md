@@ -10,7 +10,7 @@ An assistant that learns about the user over the course of conversations, with f
 
 [![Personal AI screenshot](personal_ai/docs/screenshot.png)](personal_ai/README.en.md)
 
-Architecture details, how to run it and what I would do differently today are in the [project README](personal_ai/README.en.md).
+Architecture details and how to run it are in the [project README](personal_ai/README.en.md).
 
 ---
 

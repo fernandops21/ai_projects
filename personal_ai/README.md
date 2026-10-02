@@ -76,14 +76,3 @@ python app.py
 ```
 
 A interface abre em http://127.0.0.1:7860.
-
-## O que eu faria diferente hoje
-
-O projeto funciona, mas reflete o que eu sabia na época. Olhando com mais experiência:
-
-- **Extração com o próprio LLM, não regex.** Os padrões como `I am (\w+)` são frágeis: a frase "I am Fernando" fez o sistema salvar "fernando" como traço de personalidade. Hoje eu pediria ao modelo para extrair os fatos em JSON estruturado (ou usaria *tool calling*), o que também resolveria o suporte a outros idiomas, já que hoje só funciona em inglês.
-- **API do Ollama em vez de `subprocess`.** Cada mensagem abre um processo `ollama run`. A API HTTP permitiria *streaming* da resposta, histórico em formato de chat e melhor tratamento de erros.
-- **Memória procedural de verdade.** O módulo já calcula diretrizes de estilo (tamanho da resposta, formalidade, nível técnico), mas elas não chegam a entrar no prompt. Faltou fechar esse ciclo.
-- **Esquecer e consolidar.** As memórias só crescem. Um sistema mais maduro resumiria episódios antigos, daria peso para recência e resolveria contradições (o código até registra preferências conflitantes, mas nunca as resolve).
-- **Avaliação.** Não há testes nem uma forma de medir se a memória melhora as respostas. Hoje eu montaria um pequeno conjunto de conversas com fatos plantados e mediria quantos o assistente recupera corretamente.
-- **Modelo mais recente.** O Mistral 7B foi uma boa escolha para rodar localmente na época, mas modelos pequenos mais novos seguem instruções bem melhor. Na captura acima, por exemplo, ele menciona lembretes sem que ninguém tenha perguntado sobre isso.

@@ -10,7 +10,7 @@ Assistente que aprende sobre o usuário ao longo das conversas, com quatro siste
 
 [![Screenshot do Personal AI](personal_ai/docs/screenshot.png)](personal_ai/)
 
-Detalhes de arquitetura, como rodar e o que eu faria diferente hoje estão no [README do projeto](personal_ai/README.md).
+Detalhes de arquitetura e como rodar estão no [README do projeto](personal_ai/README.md).
 
 ---
 
