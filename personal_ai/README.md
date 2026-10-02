@@ -1,5 +1,7 @@
 # Personal AI: um assistente local com memória
 
+🇺🇸 [Read in English](README.en.md)
+
 Um assistente de IA que **aprende sobre o usuário ao longo das conversas** e roda **100% local**: modelo, memórias e dados ficam na máquina, sem nenhuma API externa.
 
 A ideia central é imitar como a memória humana é organizada. Em vez de jogar o histórico inteiro no prompt, o sistema separa o que sabe em **quatro tipos de memória** e, a cada mensagem, busca só o que é relevante.

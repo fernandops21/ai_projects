@@ -1,5 +1,7 @@
 # ai_projects
 
+🇺🇸 [Read in English](README.en.md)
+
 Experimentos com IA rodando localmente, usando o modelo **Mistral 7B** via [Ollama](https://ollama.com).
 
 ## [Personal AI](personal_ai/)
